@@ -1,0 +1,8 @@
+.starRatingContainer {
+    display: flex;
+}
+
+.star {
+    font-size: 24px;
+    margin-right: 4px;
+}

@@ -1,0 +1,37 @@
+.formContainer {
+    background-color: #F9F9F9;
+    width: 18.75rem;
+    min-height: 18.75rem;
+    border-radius: 1rem;
+}
+
+.formContent {
+    width: 100%;
+    margin:.625rem 0;
+}
+
+.errorContainer {
+    display: flex;
+    justify-content: flex-start;
+    padding-inline: 1rem;
+}
+
+.errorSpan {
+    font-family: sans-serif;
+    font-weight: 500;
+    font-size: 15px;
+    color: #E57373;
+}
+
+.loadingIcon {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

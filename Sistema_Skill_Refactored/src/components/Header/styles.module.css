@@ -1,0 +1,23 @@
+.headerContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1.875rem;
+
+    h1 {
+        font-family: "Inter", sans-serif;
+        color: #356F7A;
+    }
+}
+
+.wellcomeAndLogoutContent {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+
+}
+
+.listSkillsAndAddButtonContent {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}

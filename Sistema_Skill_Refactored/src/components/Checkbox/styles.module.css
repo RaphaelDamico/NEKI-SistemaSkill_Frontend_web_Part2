@@ -1,0 +1,13 @@
+.checkboxContainer {
+    padding: 0.5rem 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.1875rem;
+}
+
+.checkboxLabel {
+    font-family: "inter", sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: #356F7A;
+}
