@@ -10,11 +10,12 @@ import { useTheme } from "styled-components";
 
 export default function Modal({ isVisibleModal, onCancel, onSave, userSkills }: ModalProps) {
     const [skillsPage, setSkillsPage] = useState<Page<Skill> | null>(null);
+    const [selectedSkills, setSelectedSkills] = useState<Skill[]>([]);
     const [page, setPage] = useState(0);
     const [size] = useState(5);
     const [sort] = useState("skillName,asc");
-    const [ inputValue, setInputValue ] = useState<string>("");
-    const [ filter, setFilter ] = useState<string>("");
+    const [inputValue, setInputValue] = useState<string>("");
+    const [filter, setFilter] = useState<string>("");
     const [timer, setTimer] = useState<number | undefined>(undefined);
 
     const theme = useTheme();
@@ -34,6 +35,14 @@ export default function Modal({ isVisibleModal, onCancel, onSave, userSkills }: 
     }, [userSkills, page, size, sort, filter]);
 
     const handleChange = (skill: Skill) => {
+        setSelectedSkills((prevSelected) => {
+            if (prevSelected.some((s) => s.skillId === skill.skillId)) {
+                return prevSelected.filter((s) => s.skillId !== skill.skillId);
+            } else {
+                return [...prevSelected, skill];
+            }
+        });
+
         const updatedSkills = skillsPage?.content.map((item) => {
             if (item.skillId === skill.skillId) {
                 return { ...item, checked: !item.checked };
@@ -45,30 +54,35 @@ export default function Modal({ isVisibleModal, onCancel, onSave, userSkills }: 
         }
     };
 
-    const handleSave = async () => {
-        try {
-            const userId = JSON.parse(localStorage.getItem("userId") || '""');
-            if (!userId) throw new Error("User ID não encontrado");
-
-            await addSkillToUser(
-                skillsPage?.content.filter((item) => item.checked === true)
-                    .map((item) => ({ skillId: item.skillId, userId: userId })) as UserSkillRequest[] || []
-            );
-            onSave();
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
     function handleFilterChange(value: string) {
         setInputValue(value);
-        if(timer) {
+        if (timer) {
             clearTimeout(timer);
         }
         setTimer(setTimeout(() => {
             setFilter(value);
         }, 1000));
     }
+
+    const handleSave = async () => {
+        try {
+            const userId = JSON.parse(localStorage.getItem("userId") || '""');
+            if (!userId) throw new Error("User ID não encontrado");
+
+            await addSkillToUser(
+                selectedSkills.map((skill) => ({ skillId: skill.skillId, userId: userId })) as UserSkillRequest[]
+            );
+            setSelectedSkills([]);
+            onSave();
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    const handleCancel = () => {
+        setSelectedSkills([]);
+        onCancel();
+    };
 
     return (
         <>
@@ -99,9 +113,7 @@ export default function Modal({ isVisibleModal, onCancel, onSave, userSkills }: 
                             >
                                 <Icon name="arrowLeft" size={30} />
                             </ArrowButton>
-
                             <PageCounter>{page + 1}</PageCounter>
-
                             <ArrowButton
                                 isHidden={!!skillsPage && page >= skillsPage.totalPages - 1}
                                 onClick={() => {
@@ -117,11 +129,11 @@ export default function Modal({ isVisibleModal, onCancel, onSave, userSkills }: 
                                 backgroundColor={theme.RED}
                                 width={100}
                                 height={40}
-                                onClick={() => onCancel()}
+                                onClick={() => handleCancel()}
                             />
                             <Button
                                 content="Salvar"
-                                backgroundColor="#356F7A"
+                                backgroundColor={theme.BLUE_700}
                                 width={100}
                                 height={40}
                                 onClick={() => handleSave()}
