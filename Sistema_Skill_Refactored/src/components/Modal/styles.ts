@@ -12,7 +12,7 @@ export const ModalContainer = styled.div`
     z-index: 1000;
     width: 27rem;
     max-width: 90%;
-    height: 450px;
+    height: 30rem;
 `;
 
 export const ModalOverlay = styled.div`
@@ -27,11 +27,11 @@ export const ModalOverlay = styled.div`
 
 export const ModalHeader = styled.div`
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: .625rem;
-    margin-bottom: 1.25rem;
+    border-bottom: 1px solid ${(props) => props.theme.GREY};
+
 
     h1 {
         color: ${(props) => props.theme['BLUE_700']};
@@ -39,12 +39,12 @@ export const ModalHeader = styled.div`
 `;
 
 export const ModalContent = styled.div`
+    display: flex;
+    flex-direction: column;
     padding: 1.25rem 0;
     overflow: auto;
     position: relative;
     height: 16.25rem;
-    display: flex;
-    flex-direction: column;
     gap: .375rem;
 `;
 
