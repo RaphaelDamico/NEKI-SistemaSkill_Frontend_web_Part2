@@ -100,9 +100,13 @@ export default function Modal({ isVisibleModal, onCancel, onSave, userSkills }: 
                                 id="filter" />
                         </ModalHeader>
                         <ModalContent>
-                            {skillsPage?.content.map((skill) => (
-                                <CardModal key={skill.skillId} skill={skill} onChange={() => handleChange(skill)} />
-                            ))}
+                            {skillsPage?.content && skillsPage.content.length > 0 ? (
+                                skillsPage.content.map((skill) => (
+                                    <CardModal key={skill.skillId} skill={skill} onChange={() => handleChange(skill)} />
+                                ))
+                            ) : (
+                                <p>Nenhuma skill disponível para adicionar.</p>
+                            )}
                         </ModalContent>
                         <ArrowContainer>
                             <ArrowButton
@@ -113,7 +117,8 @@ export default function Modal({ isVisibleModal, onCancel, onSave, userSkills }: 
                             >
                                 <Icon name="arrowLeft" size={30} />
                             </ArrowButton>
-                            <PageCounter>{page + 1}</PageCounter>
+                            {skillsPage?.content && skillsPage.content.length > 0 ? (
+                                skillsPage.content.map(() => (<PageCounter>{page + 1}</PageCounter>))): (<></>)}
                             <ArrowButton
                                 isHidden={!!skillsPage && page >= skillsPage.totalPages - 1}
                                 onClick={() => {

@@ -46,6 +46,12 @@ export const ModalContent = styled.div`
     position: relative;
     height: 16.25rem;
     gap: .375rem;
+
+    p {
+        color: ${(props) => props.theme.BLUE_700};
+        font-size: 1.75rem;
+        text-align: center;
+    }
 `;
 
 export const ButtonContainer = styled.div`
