@@ -1,9 +1,11 @@
-.modalContainer {
+import { styled } from "styled-components";
+
+export const DeleteModalContainer = styled.div`
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #F9F9F9;
+    background-color:${(props) => props.theme.WHITE};
     padding: .5rem 1.25rem;
     border-radius: 1rem;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
@@ -11,9 +13,9 @@
     width: 25rem;
     max-width: 90%;
     max-height: 55%;
-}
+`;
 
-.modalOverlay {
+export const DeleteModalOverlay = styled.div`
     position: fixed;
     top: 0;
     left: 0;
@@ -21,9 +23,9 @@
     height: 100%;
     background-color: rgba(0, 0, 0, 0.55);
     z-index: 999;
-}
+`;
 
-.modalHeader {
+export const DeleteModalHeader = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -32,24 +34,23 @@
     margin-bottom: 1.25rem;
 
     h1 {
-        font-family: "Inter", sans-serif;
-        color: #356F7A;
+        color: ${(props) => props.theme.BLUE_700};
+        text-align: center;
     }
-}
+`;
 
-.modalContent {
+export const DeleteModalContent = styled.div`
     padding: 1.25rem 0;
     overflow: auto;
     position: relative;
-    max-height: 7.5rem;
+    max-height: 15.625rem;
     display: flex;
     flex-direction: column;
     gap: .3125rem;
-}
+`;
 
-.buttonContainer {
+export const DeleteButtonContainer = styled.div`
     display: flex;
     justify-content: space-around;
     align-items: center;
-
-}
+`;

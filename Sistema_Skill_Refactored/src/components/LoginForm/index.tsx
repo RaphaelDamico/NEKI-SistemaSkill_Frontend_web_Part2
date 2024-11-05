@@ -1,17 +1,19 @@
 import Input from "../Input";
-import styles from "./styles.module.css"
 import Checkbox from "../Checkbox";
 import Button from "../Button";
 import { useNavigate } from "react-router-dom";
 import { useAuthUser } from "../../contexts/AuthUserContext";
 import { useEffect, useState } from "react";
 import { signinUser } from "../../api/api";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { ErrorContainer, ErrorSpan, FormContainer, FormContent, LoadingIcon } from "./styles";
+import { useTheme } from "styled-components";
 
 export default function LoginForm() {
     const [hasError, setHasError] = useState<boolean>(false);
     const [errorMessage, setErrorMessage] = useState<string>("");
     const [isChecked, setIsChecked] = useState(false);
+
+    const theme = useTheme();
 
     const {
         username,
@@ -73,9 +75,8 @@ export default function LoginForm() {
     };
 
     return (
-        <section className={styles.formContainer}>
-            <form
-                className={styles.formContent}
+        <FormContainer>
+            <FormContent
                 onSubmit={(e) => {
                     e.preventDefault();
                     loginUser();
@@ -104,21 +105,21 @@ export default function LoginForm() {
                     onChange={handleCheckboxChange}
                 />
                 {hasError &&
-                    <div className={styles.errorContainer}>
-                        <span className={styles.errorSpan}>{errorMessage}</span>
-                    </div>
+                    <ErrorContainer>
+                        <ErrorSpan>{errorMessage}</ErrorSpan>
+                    </ErrorContainer>
                 }
                 <Button
-                    content={loading ? <AiOutlineLoading3Quarters className={styles.loadingIcon} /> : "Entrar"}
+                    content={loading ? <LoadingIcon name="loading" /> : "Entrar"}
                     type="submit"
-                    backgroundColor={"#1A374B"}
+                    backgroundColor={theme.BLUE_700}
                 />
                 <Button
                     content={"Cadastrar"}
                     onClick={() => navigate("/cadastro")}
-                    backgroundColor={"#4EB888"}
+                    backgroundColor={theme.GREEN}
                 />
-            </form>
-        </section>
+            </FormContent>
+        </FormContainer>
     );
 }

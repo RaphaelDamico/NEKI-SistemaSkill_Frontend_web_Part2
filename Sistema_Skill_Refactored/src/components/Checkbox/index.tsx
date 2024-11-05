@@ -1,20 +1,20 @@
 import { CheckboxProps } from "../../interfaces";
-import styles from "./styles.module.css";
+import { CheckBoxContainer, CheckBoxLabel } from "./styles";
 
 const Checkbox: React.FC<CheckboxProps> = ({ label, checked, onChange, id }) => {
     return (
-        <div className={styles.checkboxContainer}>
+        <CheckBoxContainer>
             <input
                 type="checkbox"
                 checked={checked}
                 onChange={onChange}
                 id={id}
-                style={{cursor: "pointer"}}
+                style={{ cursor: "pointer" }}
             />
-            <label htmlFor={id} className={styles.checkboxLabel}>
+            <CheckBoxLabel htmlFor={id}>
                 {label}
-            </label>
-        </div>
+            </CheckBoxLabel>
+        </CheckBoxContainer>
     );
 };
 

@@ -1,6 +1,6 @@
 import { DeleteModalProps } from "../../interfaces";
 import Button from "../Button";
-import styles from "./styles.module.css";
+import { DeleteButtonContainer, DeleteModalContainer, DeleteModalHeader, DeleteModalOverlay } from "./styles";
 
 export default function DeleteModal({ isVisibleModal, onCancel, onDelete }: DeleteModalProps) {
 
@@ -8,12 +8,12 @@ export default function DeleteModal({ isVisibleModal, onCancel, onDelete }: Dele
         <>
             {isVisibleModal &&
                 <>
-                    <div className={styles.modalOverlay} />
-                    <div className={styles.modalContainer}>
-                        <div className={styles.modalHeader}>
+                    <DeleteModalOverlay />
+                    <DeleteModalContainer>
+                        <DeleteModalHeader>
                             <h1>Deseja realmente deletar a Skill?</h1>
-                        </div>
-                        <div className={styles.buttonContainer}>
+                        </DeleteModalHeader>
+                        <DeleteButtonContainer>
                             <Button
                                 content={"Cancelar"}
                                 backgroundColor="#D9534F"
@@ -26,8 +26,8 @@ export default function DeleteModal({ isVisibleModal, onCancel, onDelete }: Dele
                                 width={100}
                                 onClick={() => onDelete()}
                             />
-                        </div>
-                    </div>
+                        </DeleteButtonContainer>
+                    </DeleteModalContainer>
                 </>
             }
         </>

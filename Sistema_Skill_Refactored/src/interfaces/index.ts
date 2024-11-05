@@ -16,7 +16,7 @@ export interface ButtonProps {
 
 export interface CardProps {
     userSkill: UserSkill;
-    deleteSkill: (userId: number) => void;
+    deleteSkill: (userId: string) => void;
     refreshSkills: () => void;
 };
 
@@ -98,7 +98,7 @@ export interface IUserCredentials {
 };
 
 export interface Skill {
-    skillId: number;
+    skillId: string;
     skillName: string;
     description: string;
     image: string;
@@ -106,24 +106,24 @@ export interface Skill {
 };
 
 export interface UserSkillRequest {
-    skillId: number;
-    userId: number;
+    skillId: string;
+    userId: string;
 }
 
 export interface UserSkill {
-    userSkillId: number;
+    userSkillId: string;
     skill: Skill;
     level?: number;
 };
 
 export interface UserSkillResponse {
-    userId: number;
+    userId: string;
     username?: string;
     userSkills: UserSkill[];
 };
 
 export interface UpdateUserSkill {
-    userSkillId: number;
+    userSkillId: string;
     level: number;
 };
 
@@ -131,3 +131,20 @@ export interface UpdateUserSkillLevelResponse {
     success: boolean;
     message: string;
 }
+
+export interface SkillModel {
+    skillId: string;
+    skillName: string;
+    description: string;
+    image: string;
+}
+
+export interface Page<T> {
+    content: T[];
+    size: number;
+    totalElements: number;
+    totalPages: number;
+    number: number;
+}
+
+export type PageSkillModel = Page<SkillModel>;

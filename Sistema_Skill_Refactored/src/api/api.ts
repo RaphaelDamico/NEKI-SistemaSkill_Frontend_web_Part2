@@ -1,6 +1,6 @@
 import axios from "axios";
 import { toast } from 'react-toastify';
-import { IUserCredentials, Skill, UpdateUserSkill, UpdateUserSkillLevelResponse, UserSkillRequest, UserSkillResponse } from "../interfaces";
+import { IUserCredentials, Page, Skill, SkillModel, UpdateUserSkill, UpdateUserSkillLevelResponse, UserSkillRequest, UserSkillResponse } from "../interfaces";
 
 const api = axios.create({
     baseURL: "http://localhost:8080/"
@@ -56,7 +56,7 @@ export const signupUser = async (payload: IUserCredentials): Promise<void> => {
             toast.error("Erro ao registrar usuário, tente novamente.")
         }
     } catch (error) {
-        if (axios.isAxiosError(error) && error.response?.status === 409) 
+        if (axios.isAxiosError(error) && error.response?.status === 409)
             throw new Error("Este nome de usuário já existe");
         else {
             handleRegisterError(error);
@@ -76,7 +76,7 @@ export const signinUser = async (payload: IUserCredentials): Promise<void> => {
             "password": password
         });
         const token = response.data.token;
-        const userId = response.data.userId;
+        const userId = response.data.id;
         if (!token)
             throw new Error("Token não encontrado na resposta");
         if (!userId)
@@ -107,15 +107,27 @@ export const addSkillToUser = async (payload: UserSkillRequest[]): Promise<Skill
     }
 };
 
-export const getAllSkills = async (): Promise<Skill[] | null> => {
+export const getAllSkills = async (
+    page: number = 0,
+    size: number = 10,
+    sort: string = "skillName,asc",
+    skillNameFilter: string = ""
+): Promise<Page<SkillModel> | null> => {
     try {
         const token = localStorage.getItem("userToken");
         if (!token) {
             throw new Error("Token não encontrado");
         }
-        const response = await api.get<Skill[]>("skills", {
+        const response = await api.get<Page<SkillModel>>("skills", {
             headers: {
-                Authorization: `Bearer ${JSON.parse(token)}`
+                'Authorization': `Bearer ${JSON.parse(token)}`,
+                'accept': '*/*'
+            },
+            params: {
+                page: page,
+                size: size,
+                sort: sort,
+                skillNameFilter: skillNameFilter
             }
         });
         return response.data;
@@ -123,14 +135,16 @@ export const getAllSkills = async (): Promise<Skill[] | null> => {
         console.error("Erro ao buscar skills:", error);
         return null;
     }
-}
+};
 
-export const getUserSkills = async (userId: number): Promise<UserSkillResponse | null> => {
+
+export const getUserSkills = async (userId: string): Promise<UserSkillResponse | null> => {
     try {
         const token = localStorage.getItem("userToken");
         if (!token) {
             throw new Error("Token não encontrado");
         }
+        console.log(userId)
         const response = await api.get<UserSkillResponse>(`users/${userId}`, {
             headers: {
                 Authorization: `Bearer ${JSON.parse(token)}`
@@ -143,7 +157,7 @@ export const getUserSkills = async (userId: number): Promise<UserSkillResponse |
     }
 };
 
-export const updateUserSkillLevel = async ({ userSkillId, level}:UpdateUserSkill ): Promise<UpdateUserSkillLevelResponse> => {
+export const updateUserSkillLevel = async ({ userSkillId, level }: UpdateUserSkill): Promise<UpdateUserSkillLevelResponse> => {
     try {
         const token = localStorage.getItem("userToken");
         if (!token) throw new Error("Token não encontrado");
@@ -177,7 +191,7 @@ export const updateUserSkillLevel = async ({ userSkillId, level}:UpdateUserSkill
     }
 };
 
-export const deleteUserSkill = async (skillId: number): Promise<void> => {
+export const deleteUserSkill = async (skillId: string): Promise<void> => {
     try {
         const token = localStorage.getItem("userToken");
         if (!token) {
