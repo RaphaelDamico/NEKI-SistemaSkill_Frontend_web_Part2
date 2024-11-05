@@ -5,29 +5,33 @@ import { addSkillToUser, getAllSkills } from "../../api/api";
 import { ModalProps, Skill, UserSkillRequest, Page } from "../../interfaces";
 import { ButtonContainer, ModalContainer, ModalContent, ModalHeader, ModalOverlay, ArrowContainer, ArrowButton, PageCounter } from "./styles";
 import Icon from "../Icon";
+import Input from "../Input";
+import { useTheme } from "styled-components";
 
 export default function Modal({ isVisibleModal, onCancel, onSave, userSkills }: ModalProps) {
     const [skillsPage, setSkillsPage] = useState<Page<Skill> | null>(null);
     const [page, setPage] = useState(0);
     const [size] = useState(5);
     const [sort] = useState("skillName,asc");
+    const [ inputValue, setInputValue ] = useState<string>("");
+    const [ filter, setFilter ] = useState<string>("");
+    const [timer, setTimer] = useState<number | undefined>(undefined);
+
+    const theme = useTheme();
 
     useEffect(() => {
         const getSkillsList = async () => {
             try {
-                const data = await getAllSkills(page, size, sort);
-                const filteredSkills = data?.content?.filter(skill =>
-                    !userSkills.some(userSkill => userSkill.skill.skillId === skill.skillId)
-                ) || [];
+                const data = await getAllSkills(page, size, sort, filter);
                 if (data) {
-                    setSkillsPage({ ...data, content: filteredSkills });
+                    setSkillsPage({ ...data });
                 }
             } catch (error) {
                 console.error("Erro ao buscar lista de habilidades:", error);
             }
         };
         getSkillsList();
-    }, [userSkills, page, size, sort]);
+    }, [userSkills, page, size, sort, filter]);
 
     const handleChange = (skill: Skill) => {
         const updatedSkills = skillsPage?.content.map((item) => {
@@ -56,6 +60,16 @@ export default function Modal({ isVisibleModal, onCancel, onSave, userSkills }: 
         }
     };
 
+    function handleFilterChange(value: string) {
+        setInputValue(value);
+        if(timer) {
+            clearTimeout(timer);
+        }
+        setTimer(setTimeout(() => {
+            setFilter(value);
+        }, 1000));
+    }
+
     return (
         <>
             {isVisibleModal && (
@@ -64,6 +78,12 @@ export default function Modal({ isVisibleModal, onCancel, onSave, userSkills }: 
                     <ModalContainer>
                         <ModalHeader>
                             <h1>Selecionar Skill</h1>
+                            <Input label=""
+                                type="text"
+                                value={inputValue}
+                                onChange={(e) => handleFilterChange(e.target.value)}
+                                placeholder="Pesquisar skills"
+                                id="filter" />
                         </ModalHeader>
                         <ModalContent>
                             {skillsPage?.content.map((skill) => (
@@ -94,16 +114,16 @@ export default function Modal({ isVisibleModal, onCancel, onSave, userSkills }: 
                         <ButtonContainer>
                             <Button
                                 content="Cancelar"
-                                backgroundColor="#D9534F"
+                                backgroundColor={theme.RED}
                                 width={100}
-                                height={50}
+                                height={40}
                                 onClick={() => onCancel()}
                             />
                             <Button
                                 content="Salvar"
                                 backgroundColor="#356F7A"
                                 width={100}
-                                height={50}
+                                height={40}
                                 onClick={() => handleSave()}
                             />
                         </ButtonContainer>
