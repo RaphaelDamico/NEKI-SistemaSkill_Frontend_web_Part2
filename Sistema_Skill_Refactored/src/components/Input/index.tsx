@@ -1,33 +1,30 @@
 import { InputProps } from "../../interfaces";
-import styles from "./styles.module.css";
 import { useState } from "react";
-import Icon from "../Icon";
+import { InputArea, InputContainer, InputLabel, ViewIcon } from "./styles";
 
 const Input: React.FC<InputProps> = ({ label, type, value, onChange, placeholder, name, id, hasIcon }) => {
     const [showPassword, setShowPassword] = useState<boolean>(false);
 
     return (
-        <div className={styles.inputContainer}>
-            <label htmlFor={id} className={styles.label}>{label}</label>
-            <input
+        <InputContainer>
+            <InputLabel htmlFor={id}>{label}</InputLabel>
+            <InputArea
                 type={showPassword ? "text" : type}
                 value={value}
                 onChange={onChange}
                 placeholder={placeholder}
-                className={styles.input}
                 name={name}
                 id={id}
             />
             {hasIcon &&
                 <>
-                    <Icon
+                    <ViewIcon
                         name={showPassword ? "viewOpen" : "viewHide"}
-                        className={styles.viewIcon}
                         onClick={() => setShowPassword(!showPassword)}
                     />
                 </>
             }
-        </div>
+        </InputContainer>
     );
 };
 

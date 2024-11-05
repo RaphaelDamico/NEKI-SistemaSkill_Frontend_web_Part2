@@ -1,7 +1,7 @@
 import { HeaderProps } from "../../interfaces";
 import Button from "../Button";
 import Icon from "../Icon";
-import styles from "./styles.module.css";
+import { HeaderContainer, ListSkillsAndAddButtonContent, WellcomeAndLogoutContent } from "./styles";
 import { useNavigate } from "react-router-dom";
 
 export default function Header({ setIsModalOpen }: HeaderProps) {
@@ -20,8 +20,8 @@ export default function Header({ setIsModalOpen }: HeaderProps) {
     };
 
     return (
-        <header className={styles.headerContainer}>
-            <section className={styles.wellcomeAndLogoutContent}>
+        <HeaderContainer>
+            <WellcomeAndLogoutContent>
                 <Button
                     content={
                         <Icon
@@ -36,8 +36,8 @@ export default function Header({ setIsModalOpen }: HeaderProps) {
                     onClick={signout}
                 />
                 <h1>Bem vindo(a) {username}</h1>
-            </section>
-            <section className={styles.listSkillsAndAddButtonContent}>
+            </WellcomeAndLogoutContent>
+            <ListSkillsAndAddButtonContent>
                 <h1>Lista de Skills</h1>
                 <Button
                     content={"+ Adicionar skill"}
@@ -45,7 +45,7 @@ export default function Header({ setIsModalOpen }: HeaderProps) {
                     width={200}
                     onClick={handleOpenModal}
                 />
-            </section>
-        </header>
+            </ListSkillsAndAddButtonContent>
+        </HeaderContainer>
     );
 };

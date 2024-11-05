@@ -4,12 +4,14 @@ import Button from "../Button";
 import { useRegisterUser } from "../../contexts/RegisterUserContext";
 import { useNavigate } from "react-router-dom";
 import { signupUser } from "../../api/api";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
-import styles from "./styles.module.css";
+import { ErrorContainer, ErrorSpan, FormContainer, FormContent, LoadingIcon } from "./styles";
+import { useTheme } from "styled-components";
 
 export default function RegisterForm() {
     const [hasError, setHasError] = useState<boolean>(false);
     const [errorMessage, setErrorMessage] = useState<string>("");
+
+    const theme = useTheme();
 
     const {
         username,
@@ -61,9 +63,8 @@ export default function RegisterForm() {
     };
 
     return (
-        <section className={styles.formContainer}>
-            <form
-                className={styles.formContent}
+        <FormContainer>
+            <FormContent
                 onSubmit={(e) => {
                     e.preventDefault();
                     registerUser();
@@ -96,20 +97,20 @@ export default function RegisterForm() {
                     id="password"
                 />
                 {hasError &&
-                    <div className={styles.errorContainer}>
-                        <span className={styles.errorSpan}>{errorMessage}</span>
-                    </div>}
+                    <ErrorContainer>
+                        <ErrorSpan>{errorMessage}</ErrorSpan>
+                    </ErrorContainer>}
                 <Button
-                    content={loading ? <AiOutlineLoading3Quarters className={styles.loadingIcon} /> : "Cadastrar"}
+                    content={loading ? <LoadingIcon name="loading" /> : "Cadastrar"}
                     type="submit"
-                    backgroundColor={"#1A374B"}
+                    backgroundColor={theme.BLUE_700}
                 />
                 <Button
                     content={"Cancelar"}
                     onClick={() => navigate("/login")}
-                    backgroundColor={"#4EB888"}
+                    backgroundColor={theme.GREEN}
                 />
-            </form>
-        </section>
+            </FormContent>
+        </FormContainer>
     );
 };

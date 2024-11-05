@@ -1,11 +1,14 @@
 import { useState } from "react";
-import styles from "./styles.module.css";
 import Button from "../Button";
 import { StarRatingProps } from "../../interfaces";
+import { Star, StarRatingContainer } from "./styles";
+import { useTheme } from "styled-components";
 
 export default function StarRating({ rating, onRatingChange, isEditing, onSave }: StarRatingProps) {
     const [hoverRating, setHoverRating] = useState(0);
     const [tempRating, setTempRating] = useState(rating);
+
+    const theme = useTheme();
 
     const handleMouseEnter = (index: number) => {
         if (isEditing) {
@@ -27,30 +30,28 @@ export default function StarRating({ rating, onRatingChange, isEditing, onSave }
     };
 
     return (
-        <div className={styles.starRatingContainer}>
+        <StarRatingContainer>
             {Array.from({ length: 5 }, (_, index) => index + 1).map((star) => (
-                <span
+                <Star
                     key={star}
-                    className={styles.star}
                     onMouseEnter={() => handleMouseEnter(star)}
                     onMouseLeave={handleMouseLeave}
                     onClick={() => handleClick(star)}
-                    style={{
-                        color: (hoverRating || tempRating) >= star ? "#FFD700" : "#ccc",
-                        cursor: isEditing ? "pointer" : "default"
-                    }}
+                    isFilled={(hoverRating || tempRating) >= star}
+                    theme={theme}
+                    isEditing={isEditing}
                 >
                     ★
-                </span>
+                </Star>
             ))}
             {isEditing && (
                 <Button
                     content={"Salvar"}
                     onClick={onSave}
-                    backgroundColor="#356F7A"
+                    backgroundColor={theme.BLUE_700}
                     width={70}
                 />
             )}
-        </div>
+        </StarRatingContainer>
     );
 };

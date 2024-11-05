@@ -1,25 +1,26 @@
-.buttonContainer {
+import { styled } from "styled-components"
+
+export const ButtonContainer = styled.div`
     height: 2.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
-}
+`;
 
-.button {
+export const ButtonContent = styled.button`
     width: 80%;
     height: 80%;
     border: none;
     border-radius: 3.125rem;
-    color: #F9F9F9;
-    font-family: "inter", sans-serif;
-    font-size: 1rem;
+    color: ${(props) => props.theme["WHITE"]};
+    font-size: 1.125rem;
     font-weight: 500;
     transition: transform 0.3s ease-in-out;
     align-items: center;
     justify-content: center;
-}
 
-.button:hover {
+    &:hover {
     cursor: pointer;
     transform: scale(1.05);
 }
+`;

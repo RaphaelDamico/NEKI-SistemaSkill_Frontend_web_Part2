@@ -1,18 +1,18 @@
 import LoginForm from "../../components/LoginForm";
-import styles from "./styles.module.css";
+import { BodyContainer, BodyContent, SubTitle, TextContainer, Title } from "./Styles";
 
 export default function LoginPage() {
 
   return (
-    <main className={styles.bodyContainer}>
-      <div className={styles.bodyContent}>
-        <section className={styles.textContainer}>
-          <h1 className={styles.title}>System Skills</h1>
-          <h2 className={styles.subTitle}>Gerencie e desenvolva suas habilidades profissionais.</h2>
-        </section>
+    <BodyContainer>
+      <BodyContent>
+        <TextContainer>
+          <Title>System Skills</Title>
+          <SubTitle>Gerencie e desenvolva suas habilidades profissionais.</SubTitle>
+        </TextContainer>
         <LoginForm />
-      </div>
-    </main>
+      </BodyContent>
+    </BodyContainer>
   )
 };
 

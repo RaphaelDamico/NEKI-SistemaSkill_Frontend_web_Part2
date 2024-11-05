@@ -3,13 +3,18 @@ import { FaRegTrashAlt } from "react-icons/fa";
 import { FiEdit } from "react-icons/fi";
 import { SlLogout } from "react-icons/sl";
 import { IconProps } from "../../interfaces";
+import { FaArrowLeft, FaArrowRight  } from "react-icons/fa6";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 const icons = {
     viewHide: GrFormViewHide,
     viewOpen: GrFormView,
     trash: FaRegTrashAlt,
     edit: FiEdit,
-    logout: SlLogout
+    logout: SlLogout,
+    arrowLeft: FaArrowLeft,
+    arrowRight: FaArrowRight,
+    loading: AiOutlineLoading3Quarters
 
 };
 

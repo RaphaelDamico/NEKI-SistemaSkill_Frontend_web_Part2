@@ -1,20 +1,22 @@
 import { useState } from "react";
 import Button from "../Button";
 import Icon from "../Icon";
-import styles from "./styles.module.css";
 import { CardProps } from "../../interfaces";
 import { updateUserSkillLevel } from "../../api/api";
 import StarRating from "../StarRating";
 import { toast } from "react-toastify";
+import { CardContainer, CardContent, IconButtonContainer, InfoContent } from "./styles";
+import { useTheme } from "styled-components";
 
 export default function Card({ userSkill, deleteSkill, refreshSkills }: CardProps) {
     const [isEditing, setIsEditing] = useState(false);
     const [level, setLevel] = useState(userSkill.level);
 
+    const theme = useTheme();
+
     const handleRatingChange = (newRating: number) => {
         setLevel(newRating);
     };
-
     const handleSave = async () => {
         if (level !== undefined) {
             await updateUserSkillLevel({ userSkillId: userSkill.userSkillId, level });
@@ -25,12 +27,21 @@ export default function Card({ userSkill, deleteSkill, refreshSkills }: CardProp
     };
 
     return (
-        <div className={styles.cardContainer}>
-            <div className={styles.buttonContainer}>
+        <CardContainer>
+            <CardContent>
+                <img src={userSkill.skill.image} alt="Logo da skill" width={150} height={150} />
+                <InfoContent>
+                    <h1> {userSkill.skill.skillName}</h1>
+                    <StarRating rating={level || 1} onRatingChange={handleRatingChange} isEditing={isEditing} onSave={handleSave} />
+                    <span> {userSkill.skill.description}</span>
+                </InfoContent>
+            </CardContent>
+            <IconButtonContainer>
                 <Button
                     content={
                         <Icon name={"edit"}
-                            color="#356F7A"
+                            size={20}
+                            color={theme.BLUE_700}
                         />
                     }
                     onClick={() => setIsEditing(!isEditing)}
@@ -38,20 +49,13 @@ export default function Card({ userSkill, deleteSkill, refreshSkills }: CardProp
                 <Button
                     content={
                         <Icon name={"trash"}
-                            color="red"
+                            size={20}
+                            color={theme.RED}
                         />
                     }
                     onClick={() => deleteSkill(userSkill.userSkillId)}
                 />
-            </div>
-            <div className={styles.cardContent}>
-                <img src={userSkill.skill.image} alt="Logo da skill" width={150} height={150} />
-                <div className={styles.infoContent}>
-                    <h1> {userSkill.skill.skillName}</h1>
-                    <StarRating rating={level || 1} onRatingChange={handleRatingChange} isEditing={isEditing} onSave={handleSave} />
-                    <span> {userSkill.skill.description}</span>
-                </div>
-            </div>
-        </div>
+            </IconButtonContainer>
+        </CardContainer>
     );
 };
