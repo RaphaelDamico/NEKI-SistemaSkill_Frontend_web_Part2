@@ -59,31 +59,3 @@ export const ButtonContainer = styled.div`
     justify-content: space-around;
     align-items: center;
 `;
-
-export const ArrowContainer = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    margin: .5rem 0;
-    position: relative;
-`;
-
-export const ArrowButton = styled.div<{ isHidden?: boolean }>`
-    cursor: pointer;
-    transition: transform 0.2s ease;
-    display: flex;
-    align-items: center;
-    visibility: ${({ isHidden }) => (isHidden ? "hidden" : "visible")};
-
-    &:hover {
-        transform: scale(1.2);
-    }
-`;
-
-export const PageCounter = styled.span`
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    font-weight: bold;
-`;

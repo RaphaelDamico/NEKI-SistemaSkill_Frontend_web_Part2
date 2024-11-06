@@ -1,6 +1,6 @@
 import axios from "axios";
 import { toast } from 'react-toastify';
-import { IUserCredentials, Page, Skill, SkillModel, UpdateUserSkill, UpdateUserSkillLevelResponse, UserSkillRequest, UserSkillResponse } from "../interfaces";
+import { IUserCredentials, Page, Skill, SkillModel, UpdateUserSkill, UpdateUserSkillLevelResponse, UserSkill, UserSkillRequest, UserSkillResponse } from "../interfaces";
 
 const api = axios.create({
     baseURL: "http://localhost:8080/"
@@ -138,16 +138,27 @@ export const getAllSkills = async (
 };
 
 
-export const getUserSkills = async (userId: string): Promise<UserSkillResponse | null> => {
+export const getUserSkills = async (
+    page: number = 0,
+    size: number = 10,
+    sort: string = "skillName,asc",
+    userSkillNameFilter: string = ""
+): Promise<Page<UserSkill> | null> => {
     try {
         const token = localStorage.getItem("userToken");
         if (!token) {
             throw new Error("Token não encontrado");
         }
-        console.log(userId)
-        const response = await api.get<UserSkillResponse>(`users/${userId}`, {
+        const response = await api.get<Page<UserSkill>>(`user-skills`, {
             headers: {
-                Authorization: `Bearer ${JSON.parse(token)}`
+                'Authorization': `Bearer ${JSON.parse(token)}`,
+                'accept': '*/*'
+            },
+            params: {
+                page: page,
+                size: size,
+                sort: sort,
+                userSkillNameFilter: userSkillNameFilter
             }
         });
         return response.data;

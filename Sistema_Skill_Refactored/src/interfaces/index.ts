@@ -148,3 +148,4 @@ export interface Page<T> {
 }
 
 export type PageSkillModel = Page<SkillModel>;
+export type PageUserSkill = Page<UserSkill>;

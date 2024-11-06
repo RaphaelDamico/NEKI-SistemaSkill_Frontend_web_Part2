@@ -3,10 +3,10 @@ import Button from "../Button";
 import CardModal from "../CardModal";
 import { addSkillToUser, getAllSkills } from "../../api/api";
 import { ModalProps, Skill, UserSkillRequest, Page } from "../../interfaces";
-import { ButtonContainer, ModalContainer, ModalContent, ModalHeader, ModalOverlay, ArrowContainer, ArrowButton, PageCounter } from "./styles";
-import Icon from "../Icon";
+import { ButtonContainer, ModalContainer, ModalContent, ModalHeader, ModalOverlay } from "./styles";
 import Input from "../Input";
 import { useTheme } from "styled-components";
+import Pagination from "../Pagination";
 
 export default function Modal({ isVisibleModal, onCancel, onSave, userSkills }: ModalProps) {
     const [skillsPage, setSkillsPage] = useState<Page<Skill> | null>(null);
@@ -74,6 +74,7 @@ export default function Modal({ isVisibleModal, onCancel, onSave, userSkills }: 
             );
             setSelectedSkills([]);
             onSave();
+            setPage(0);
         } catch (error) {
             console.error(error);
         }
@@ -82,6 +83,7 @@ export default function Modal({ isVisibleModal, onCancel, onSave, userSkills }: 
     const handleCancel = () => {
         setSelectedSkills([]);
         onCancel();
+        setPage(0);
     };
 
     return (
@@ -108,26 +110,11 @@ export default function Modal({ isVisibleModal, onCancel, onSave, userSkills }: 
                                 <p>Nenhuma skill disponível para adicionar.</p>
                             )}
                         </ModalContent>
-                        <ArrowContainer>
-                            <ArrowButton
-                                isHidden={page === 0}
-                                onClick={() => {
-                                    if (page > 0) setPage((prev) => prev - 1);
-                                }}
-                            >
-                                <Icon name="arrowLeft" size={30} />
-                            </ArrowButton>
-                            {skillsPage?.content && skillsPage.content.length > 0 ? (
-                                skillsPage.content.map(() => (<PageCounter>{page + 1}</PageCounter>))): (<></>)}
-                            <ArrowButton
-                                isHidden={!!skillsPage && page >= skillsPage.totalPages - 1}
-                                onClick={() => {
-                                    if (skillsPage && page < skillsPage.totalPages - 1) setPage((prev) => prev + 1);
-                                }}
-                            >
-                                <Icon name="arrowRight" size={30} />
-                            </ArrowButton>
-                        </ArrowContainer>
+                        <Pagination
+                            page={page}
+                            handlePageChange={setPage}
+                            totalPages={skillsPage?.totalPages || 0}
+                        />
                         <ButtonContainer>
                             <Button
                                 content="Cancelar"
