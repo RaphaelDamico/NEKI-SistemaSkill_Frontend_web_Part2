@@ -33,6 +33,11 @@ export default function RegisterForm() {
 
 
     const registerUser = async () => {
+        if(!username){
+            setHasError(true);
+            setErrorMessage("Digite o nome de usuário")
+            return;
+        }
         if (password !== confirmPassword) {
             setHasError(true);
             setErrorMessage("As senhas não correspondem");

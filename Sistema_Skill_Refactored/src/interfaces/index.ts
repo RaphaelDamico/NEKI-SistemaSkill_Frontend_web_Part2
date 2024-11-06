@@ -44,7 +44,7 @@ export interface IconProps {
 };
 
 export interface InputProps {
-    label: string;
+    label?: string;
     type: string;
     value: string | undefined;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
