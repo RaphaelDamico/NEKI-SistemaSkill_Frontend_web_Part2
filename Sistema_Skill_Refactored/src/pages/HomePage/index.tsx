@@ -99,6 +99,8 @@ export default function HomePage() {
         }, 1000));
     };
 
+    const isSkillListEmpty = !userSkillList?.content || userSkillList.content.length === 0;
+
     return (
         <Container>
             <Header setIsModalOpen={setIsModalOpen} />
@@ -113,22 +115,34 @@ export default function HomePage() {
                     />
                 </InputContent>
             </InputContainer>
-            {userSkillList?.content.map((skill) => (
-                <Card
-                    key={skill.userSkillId}
-                    userSkill={skill}
-                    deleteSkill={handleOpenDeleteModal}
-                    refreshSkills={getUserSkillsList}
-                />
-            ))}
-            {userSkillList?.content && userSkillList?.content.length > 0 ?
+            {isSkillListEmpty ? (
+                filter ? (
+                    <EmptyListCard
+                        title="Nenhum resultado encontrado"
+                        text="Tente alterar o termo de pesquisa ou adicionar novas skills ao seu perfil."
+                    />
+                ) : (
+                    <EmptyListCard
+                        title="Sua lista de skills está vazia!"
+                        text="Que tal explorar novas competências e adicionar skills incríveis para impulsionar seu perfil?"
+                    />
+                )
+            ) : (
+                userSkillList?.content.map((skill) => (
+                    <Card
+                        key={skill.userSkillId}
+                        userSkill={skill}
+                        deleteSkill={handleOpenDeleteModal}
+                        refreshSkills={getUserSkillsList}
+                    />
+                ))
+            )}
+            {userSkillList?.content && userSkillList?.content.length > 0 &&
                 (<Pagination
                     page={page}
                     handlePageChange={setPage}
                     totalPages={userSkillList?.totalPages}
-                />) : (
-                    <EmptyListCard />
-                )}
+                />)}
             <Modal
                 isVisibleModal={isModalOpen}
                 onCancel={handleCloseModal}

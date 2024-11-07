@@ -9,7 +9,7 @@ export const EmptyListCardContainer = styled.div`
     padding: 1.875rem 2.5rem;
     border-radius: 1rem;
     box-shadow: 0px 2px 18px 0px rgba(0, 0, 0, 0.25);
-    height: 300px;
+    height: 18.75rem;
     margin-top: 6.25rem;
 
     h1 {
@@ -17,6 +17,6 @@ export const EmptyListCardContainer = styled.div`
     }
 
     p {
-        font-size: 1.125rem;
+        font-size: 1.625rem;
     }
 `;
