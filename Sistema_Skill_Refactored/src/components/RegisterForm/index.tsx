@@ -31,11 +31,20 @@ export default function RegisterForm() {
         return regexp.test(password);
     };
 
-
     const registerUser = async () => {
         if(!username){
             setHasError(true);
-            setErrorMessage("Digite o nome de usuário")
+            setErrorMessage("Digite um nome de usuário")
+            return;
+        }
+        if(!password){
+            setHasError(true);
+            setErrorMessage("Digite uma senha")
+            return;
+        }
+        if(!confirmPassword){
+            setHasError(true);
+            setErrorMessage("Confirme a senha digitada")
             return;
         }
         if (password !== confirmPassword) {

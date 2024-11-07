@@ -6,17 +6,21 @@ export const FormContainer = styled.section`
     width: 18.75rem;
     min-height: 18.75rem;
     border-radius: 1rem;
+    display: flex;
+    padding: 8px 0;
 `;
 
 export const FormContent = styled.form`
     width: 100%;
-    margin-top: .625rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 `;
 
 export const ErrorContainer = styled.div`
     display: flex;
     justify-content: flex-start;
-    padding-inline-start: 1rem;
+    padding-inline-start: 1.25rem;
 `;
 
 export const ErrorSpan = styled.span`

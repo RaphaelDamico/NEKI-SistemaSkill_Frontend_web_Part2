@@ -10,7 +10,6 @@ export const EmptyListCardContainer = styled.div`
     border-radius: 1rem;
     box-shadow: 0px 2px 18px 0px rgba(0, 0, 0, 0.25);
     height: 18.75rem;
-    margin-top: 6.25rem;
 
     h1 {
         font-size: 2.5rem;
