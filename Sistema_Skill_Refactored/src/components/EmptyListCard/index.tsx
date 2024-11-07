@@ -1,11 +1,15 @@
 import { EmptyListCardContainer } from "./styles";
 
-export default function EmptyListCard() {
-    return(
+interface EmptyListCardProps {
+    title: string;
+    text: string;
+}
+
+export default function EmptyListCard({ title, text }: EmptyListCardProps) {
+    return (
         <EmptyListCardContainer>
-            <h1>Sua lista de skills está vazia!</h1>
-            <h2>Que tal explorar novas competências e adicionar skills incríveis para impulsionar seu perfil?</h2>
-            <p>Comece agora e mostre ao mundo todo o seu potencial!</p>
+            <h1>{title}</h1>
+            <p>{text}</p>
         </EmptyListCardContainer>
 
     );
