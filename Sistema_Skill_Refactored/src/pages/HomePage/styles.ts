@@ -11,3 +11,15 @@ export const Container = styled.main`
         max-width: 62.5rem;
     }
 `;
+
+export const InputContainer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+`;
+
+export const InputContent = styled.div`
+    width: 13.75rem;
+    margin-right: -10px;
+`;

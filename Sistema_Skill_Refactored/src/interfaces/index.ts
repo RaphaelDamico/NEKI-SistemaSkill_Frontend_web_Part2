@@ -12,6 +12,7 @@ export interface ButtonProps {
     type?: "submit";
     width?: string | number;
     height?: string | number;
+    disabled?: boolean;
 };
 
 export interface CardProps {
@@ -130,22 +131,21 @@ export interface UpdateUserSkill {
 export interface UpdateUserSkillLevelResponse {
     success: boolean;
     message: string;
-}
+};
 
 export interface SkillModel {
     skillId: string;
     skillName: string;
     description: string;
     image: string;
-}
-
+};
 export interface Page<T> {
     content: T[];
     size: number;
     totalElements: number;
     totalPages: number;
     number: number;
-}
+};
 
 export type PageSkillModel = Page<SkillModel>;
 export type PageUserSkill = Page<UserSkill>;

@@ -24,15 +24,26 @@ export default function Modal({ isVisibleModal, onCancel, onSave, userSkills }: 
         const getSkillsList = async () => {
             try {
                 const data = await getAllSkills(page, size, sort, filter);
-                if (data) {
-                    setSkillsPage({ ...data });
-                }
+                const filteredSkills = (data?.content ?? []).filter(skill =>
+                    !userSkills.some(userSkill => userSkill.skill.skillId === skill.skillId)
+                );
+                const updatedSkills = filteredSkills.map(skill => ({
+                    ...skill,
+                    checked: selectedSkills.some(s => s.skillId === skill.skillId),
+                }));
+                setSkillsPage({
+                    content: updatedSkills,
+                    size: data?.size ?? 0,
+                    totalElements: data?.totalElements ?? 0,
+                    totalPages: data?.totalPages ?? 0,
+                    number: data?.number ?? 0,
+                });
             } catch (error) {
                 console.error("Erro ao buscar lista de habilidades:", error);
             }
         };
         getSkillsList();
-    }, [userSkills, page, size, sort, filter]);
+    }, [userSkills, page, size, sort, filter, selectedSkills]);
 
     const handleChange = (skill: Skill) => {
         setSelectedSkills((prevSelected) => {
@@ -62,7 +73,7 @@ export default function Modal({ isVisibleModal, onCancel, onSave, userSkills }: 
         setTimer(setTimeout(() => {
             setFilter(value);
         }, 1000));
-    }
+    };
 
     const handleSave = async () => {
         try {
@@ -74,6 +85,8 @@ export default function Modal({ isVisibleModal, onCancel, onSave, userSkills }: 
             );
             setSelectedSkills([]);
             onSave();
+            setInputValue("");
+            setFilter("");
             setPage(0);
         } catch (error) {
             console.error(error);
@@ -83,6 +96,8 @@ export default function Modal({ isVisibleModal, onCancel, onSave, userSkills }: 
     const handleCancel = () => {
         setSelectedSkills([]);
         onCancel();
+        setInputValue("");
+        setFilter("");
         setPage(0);
     };
 
@@ -99,7 +114,8 @@ export default function Modal({ isVisibleModal, onCancel, onSave, userSkills }: 
                                 value={inputValue}
                                 onChange={(e) => handleFilterChange(e.target.value)}
                                 placeholder="Pesquisar skills"
-                                id="filter" />
+                                id="filter"
+                            />
                         </ModalHeader>
                         <ModalContent>
                             {skillsPage?.content && skillsPage.content.length > 0 ? (
@@ -110,11 +126,13 @@ export default function Modal({ isVisibleModal, onCancel, onSave, userSkills }: 
                                 <p>Nenhuma skill disponível para adicionar.</p>
                             )}
                         </ModalContent>
-                        <Pagination
+                        {skillsPage?.content && skillsPage.content.length > 0 ? (
+                            <Pagination
                             page={page}
                             handlePageChange={setPage}
                             totalPages={skillsPage?.totalPages || 0}
                         />
+                        ) : <></>}
                         <ButtonContainer>
                             <Button
                                 content="Cancelar"
@@ -125,10 +143,11 @@ export default function Modal({ isVisibleModal, onCancel, onSave, userSkills }: 
                             />
                             <Button
                                 content="Salvar"
-                                backgroundColor={theme.BLUE_700}
+                                backgroundColor={selectedSkills.length === 0 ? theme.GREY : theme.BLUE_700}
                                 width={100}
                                 height={40}
                                 onClick={() => handleSave()}
+                                disabled={selectedSkills.length === 0}
                             />
                         </ButtonContainer>
                     </ModalContainer>

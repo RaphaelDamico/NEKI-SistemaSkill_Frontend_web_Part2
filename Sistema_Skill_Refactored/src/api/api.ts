@@ -142,7 +142,7 @@ export const getUserSkills = async (
     page: number = 0,
     size: number = 10,
     sort: string = "skillName,asc",
-    userSkillNameFilter: string = ""
+    skillNameFilter: string = ""
 ): Promise<Page<UserSkill> | null> => {
     try {
         const token = localStorage.getItem("userToken");
@@ -158,7 +158,7 @@ export const getUserSkills = async (
                 page: page,
                 size: size,
                 sort: sort,
-                userSkillNameFilter: userSkillNameFilter
+                skillNameFilter: skillNameFilter
             }
         });
         return response.data;

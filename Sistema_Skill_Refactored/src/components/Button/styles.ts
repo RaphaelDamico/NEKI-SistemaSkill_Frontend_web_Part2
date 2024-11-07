@@ -22,5 +22,10 @@ export const ButtonContent = styled.button`
     &:hover {
     cursor: pointer;
     transform: scale(1.05);
+
+    &:disabled {
+        cursor: not-allowed;
+        transform: none;
+    }
 }
 `;
