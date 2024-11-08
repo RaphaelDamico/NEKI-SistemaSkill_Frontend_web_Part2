@@ -25,13 +25,13 @@ Este projeto é uma aplicação web desenvolvida em React e Vite para gerenciar 
      - **Botão de Cancelar:** Retorna para a tela de login.
 
 3. **Tela Home**
-   - **Descrição:** Exibe a lista de skills associadas ao usuário logado em forma paginada e com ordenação, permitindo ao usuário gerenciá-las, de forma que o usuário possa alterar o seu nível, de uma a 5 estrelas ou deletar de sua lista de skills.
+   - **Descrição:** Exibe a lista de skills associadas ao usuário logado em forma paginada e com ordenação, permitindo ao usuário gerenciá-las e filtrá-las, de forma que o usuário possa alterar o seu nível, de uma a 5 estrelas ou deletar de sua lista de skills.
    - **Componentes:**
      - **Lista de Skills:** Exibe a imagem (URL), nome da skill, nível (em forma de estrelas) e descrição. O nível pode ser editado diretamente na lista.
      - **Botão de Editar Skill:** Permite que o usuário edite o nível da skill na lista.
      - **Botão de Excluir Skill:** Permite remover uma skill da lista.
      - **Botão de Adicionar Skill:** Abre uma modal para adicionar uma nova skill. A modal inclui:
-       - **Lista de Seleção de Skill:** Lista de skills paginadas e ordenadas disponíveis cadastradas e  retornadas de um endpoint da api.
+       - **Lista de Seleção de Skill:** Lista de skills disponíveis cadastradas de forma paginada, ordenada e com a possibilidade de filtro, sendo retornadas de um endpoint da api.
        - **Botão de Salvar:** Salva a nova skill associada ao usuário.
        - **Botão de Cancelar:** Fecha a modal sem salvar.
      - **Botão de Logout:** Encerra a sessão do usuário.
