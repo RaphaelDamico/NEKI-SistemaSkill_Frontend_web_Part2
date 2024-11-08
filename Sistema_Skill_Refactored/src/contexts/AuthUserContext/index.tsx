@@ -8,7 +8,7 @@ export const AuthUserProvider = ({ children }: { children: ReactNode }) => {
     const [password, setPassword] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(false);
 
-    return(
+    return (
         <AuthUserContext.Provider value={{
             username,
             setUsername,
@@ -17,14 +17,14 @@ export const AuthUserProvider = ({ children }: { children: ReactNode }) => {
             loading,
             setLoading
         }}>
-            { children }
+            {children}
         </AuthUserContext.Provider>
     );
 };
 
-export const useAuthUser =(): AuthUserContextProps => {
+export const useAuthUser = (): AuthUserContextProps => {
     const context = useContext(AuthUserContext);
-    if(!context)
+    if (!context)
         throw new Error("useAuthUser deve ser usado com um AuthUserProvider");
     return context;
 };

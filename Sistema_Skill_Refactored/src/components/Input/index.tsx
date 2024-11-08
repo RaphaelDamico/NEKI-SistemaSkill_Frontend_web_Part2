@@ -27,5 +27,4 @@ const Input: React.FC<InputProps> = ({ label, type, value, onChange, placeholder
         </InputContainer>
     );
 };
-
 export default Input;

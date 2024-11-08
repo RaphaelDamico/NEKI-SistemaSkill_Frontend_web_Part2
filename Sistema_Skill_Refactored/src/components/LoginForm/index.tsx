@@ -41,12 +41,12 @@ export default function LoginForm() {
     }, [setUsername, setPassword]);
 
     const loginUser = async () => {
-        if(!username){
+        if (!username) {
             setHasError(true);
             setErrorMessage("Digite um nome de usuário")
             return;
         }
-        if(!password){
+        if (!password) {
             setHasError(true);
             setErrorMessage("Digite uma senha")
             return;

@@ -33,17 +33,27 @@ export default function Card({ userSkill, deleteSkill, refreshSkills }: CardProp
     return (
         <CardContainer>
             <CardContent>
-                <img src={userSkill.skill.image} alt="Logo da skill" width={150} height={150} />
+                <img
+                    src={userSkill.skill.image}
+                    alt="Logo da skill"
+                    width={150}
+                    height={150}
+                />
                 <InfoContent>
                     <h1> {userSkill.skill.skillName}</h1>
-                    <StarRating rating={level || 1} onRatingChange={handleRatingChange} isEditing={isEditing} onSave={handleSave} />
+                    <StarRating
+                        rating={level || 1}
+                        onRatingChange={handleRatingChange} isEditing={isEditing}
+                        onSave={handleSave}
+                    />
                     <span> {userSkill.skill.description}</span>
                 </InfoContent>
             </CardContent>
             <IconButtonContainer>
                 <Button
                     content={
-                        <Icon name={"edit"}
+                        <Icon
+                            name={"edit"}
                             size={20}
                             color={theme.BLUE_700}
                         />

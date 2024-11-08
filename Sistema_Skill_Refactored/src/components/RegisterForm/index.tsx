@@ -32,17 +32,17 @@ export default function RegisterForm() {
     };
 
     const registerUser = async () => {
-        if(!username){
+        if (!username) {
             setHasError(true);
             setErrorMessage("Digite um nome de usuário")
             return;
         }
-        if(!password){
+        if (!password) {
             setHasError(true);
             setErrorMessage("Digite uma senha")
             return;
         }
-        if(!confirmPassword){
+        if (!confirmPassword) {
             setHasError(true);
             setErrorMessage("Confirme a senha digitada")
             return;

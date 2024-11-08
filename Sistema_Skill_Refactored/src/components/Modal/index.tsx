@@ -3,18 +3,20 @@ import Button from "../Button";
 import CardModal from "../CardModal";
 import { addSkillToUser, getAllSkills } from "../../api/api";
 import { ModalProps, Skill, UserSkillRequest, Page } from "../../interfaces";
-import { ButtonContainer, ModalContainer, ModalContent, ModalHeader, ModalOverlay } from "./styles";
+import { ButtonContainer, ModalContainer, ModalContent, ModalHeader, ModalHeaderContent, ModalOverlay } from "./styles";
 import Input from "../Input";
 import { useTheme } from "styled-components";
 import Pagination from "../Pagination";
 import { toast } from "react-toastify";
+import Icon from "../Icon";
 
 export default function Modal({ isVisibleModal, onCancel, onSave, userSkills }: ModalProps) {
     const [skillsPage, setSkillsPage] = useState<Page<Skill> | null>(null);
     const [selectedSkills, setSelectedSkills] = useState<Skill[]>([]);
     const [page, setPage] = useState(0);
     const [size] = useState(5);
-    const [sort] = useState("skillName,asc");
+    const [sort, setSort] = useState<string>("skillName,asc");
+    const [sortIcon, setSortIcon] = useState<string>("arrowUp");
     const [inputValue, setInputValue] = useState<string>("");
     const [filter, setFilter] = useState<string>("");
     const [timer, setTimer] = useState<number | undefined>(undefined);
@@ -102,6 +104,15 @@ export default function Modal({ isVisibleModal, onCancel, onSave, userSkills }: 
         setPage(0);
     };
 
+    function handleChangeSort() {
+        setSort((prevSort) => {
+            const [field, order] = prevSort.split(",");
+            const newOrder = order === "asc" ? "desc" : "asc";
+            setSortIcon(newOrder === "asc" ? "arrowUp" : "arrowDown");
+            return `${field},${newOrder}`;
+        })
+    };
+
     return (
         <>
             {isVisibleModal && (
@@ -110,13 +121,28 @@ export default function Modal({ isVisibleModal, onCancel, onSave, userSkills }: 
                     <ModalContainer>
                         <ModalHeader>
                             <h1>Selecionar Skill</h1>
-                            <Input label=""
-                                type="text"
-                                value={inputValue}
-                                onChange={(e) => handleFilterChange(e.target.value)}
-                                placeholder="Filtrar Skills"
-                                id="filter"
-                            />
+                            <ModalHeaderContent>
+                                <Button
+                                    content={
+                                        <Icon
+                                            name={sortIcon}
+                                            color={theme.WHITE}
+                                            size={18}
+                                        />
+
+                                    }
+                                    backgroundColor={theme.BLUE_700}
+                                    width={70}
+                                    onClick={handleChangeSort}
+                                />
+                                <Input
+                                    type="text"
+                                    value={inputValue}
+                                    onChange={(e) => handleFilterChange(e.target.value)}
+                                    placeholder="Filtrar Skills"
+                                    id="filter"
+                                />
+                            </ModalHeaderContent>
                         </ModalHeader>
                         <ModalContent>
                             {skillsPage?.content && skillsPage.content.length > 0 ? (
@@ -129,10 +155,10 @@ export default function Modal({ isVisibleModal, onCancel, onSave, userSkills }: 
                         </ModalContent>
                         {skillsPage?.content && skillsPage.content.length > 0 ? (
                             <Pagination
-                            page={page}
-                            handlePageChange={setPage}
-                            totalPages={skillsPage?.totalPages || 0}
-                        />
+                                page={page}
+                                handlePageChange={setPage}
+                                totalPages={skillsPage?.totalPages || 0}
+                            />
                         ) : <></>}
                         <ButtonContainer>
                             <Button
