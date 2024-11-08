@@ -26,4 +26,5 @@ export const PageCounter = styled.span`
     left: 50%;
     transform: translateX(-50%);
     font-weight: bold;
+    color: ${(props) => props.theme.BLUE_700}
 `;

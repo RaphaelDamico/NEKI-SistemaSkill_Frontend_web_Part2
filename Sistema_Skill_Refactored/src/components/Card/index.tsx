@@ -18,11 +18,15 @@ export default function Card({ userSkill, deleteSkill, refreshSkills }: CardProp
         setLevel(newRating);
     };
     const handleSave = async () => {
-        if (level !== undefined) {
-            await updateUserSkillLevel({ userSkillId: userSkill.userSkillId, level });
-            setIsEditing(false);
-            refreshSkills();
-            toast.success("Level da skill atualizado")
+        try {
+            if (level !== undefined) {
+                await updateUserSkillLevel({ userSkillId: userSkill.userSkillId, level });
+                setIsEditing(false);
+                refreshSkills();
+                toast.success("Level da skill atualizado")
+            }
+        } catch (error) {
+            toast.error("Erro ao tentar atualizar o level da skill")
         }
     };
 

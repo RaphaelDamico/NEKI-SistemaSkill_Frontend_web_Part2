@@ -76,7 +76,7 @@ export default function HomePage() {
             }
             setIsDeleteModalOpen(false);
         } catch (error) {
-            console.error(error);
+            toast.error("Erro ao tentar deletar a skill do usuário")
         }
     };
 

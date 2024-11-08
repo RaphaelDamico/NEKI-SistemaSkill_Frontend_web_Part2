@@ -7,6 +7,7 @@ import { ButtonContainer, ModalContainer, ModalContent, ModalHeader, ModalOverla
 import Input from "../Input";
 import { useTheme } from "styled-components";
 import Pagination from "../Pagination";
+import { toast } from "react-toastify";
 
 export default function Modal({ isVisibleModal, onCancel, onSave, userSkills }: ModalProps) {
     const [skillsPage, setSkillsPage] = useState<Page<Skill> | null>(null);
@@ -89,7 +90,7 @@ export default function Modal({ isVisibleModal, onCancel, onSave, userSkills }: 
             setFilter("");
             setPage(0);
         } catch (error) {
-            console.error(error);
+            toast.error("Erro ao tentar adicionar skill para o usuário")
         }
     };
 
