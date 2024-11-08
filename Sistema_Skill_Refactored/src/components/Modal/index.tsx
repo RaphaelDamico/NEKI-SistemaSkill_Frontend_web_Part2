@@ -16,7 +16,7 @@ export default function Modal({ isVisibleModal, onCancel, onSave, userSkills }: 
     const [page, setPage] = useState(0);
     const [size] = useState(5);
     const [sort, setSort] = useState<string>("skillName,asc");
-    const [sortIcon, setSortIcon] = useState<string>("arrowDown");
+    const [sortIcon, setSortIcon] = useState<string>("arrowUp");
     const [inputValue, setInputValue] = useState<string>("");
     const [filter, setFilter] = useState<string>("");
     const [timer, setTimer] = useState<number | undefined>(undefined);
@@ -106,12 +106,12 @@ export default function Modal({ isVisibleModal, onCancel, onSave, userSkills }: 
 
     function handleChangeSort() {
         setSort((prevSort) => {
-            const[field, order] = prevSort.split(",");
+            const [field, order] = prevSort.split(",");
             const newOrder = order === "asc" ? "desc" : "asc";
             setSortIcon(newOrder === "asc" ? "arrowUp" : "arrowDown");
             return `${field},${newOrder}`;
         })
-    }
+    };
 
     return (
         <>
@@ -122,26 +122,26 @@ export default function Modal({ isVisibleModal, onCancel, onSave, userSkills }: 
                         <ModalHeader>
                             <h1>Selecionar Skill</h1>
                             <ModalHeaderContent>
-                            <Button
-                    content={
-                        <Icon
-                            name={sortIcon}
-                            color={theme.WHITE}
-                            size={18}
-                        />
+                                <Button
+                                    content={
+                                        <Icon
+                                            name={sortIcon}
+                                            color={theme.WHITE}
+                                            size={18}
+                                        />
 
-                    }
-                    backgroundColor={theme.BLUE_700}
-                    width={70}
-                    onClick={handleChangeSort}
-                />
-                            <Input
-                                type="text"
-                                value={inputValue}
-                                onChange={(e) => handleFilterChange(e.target.value)}
-                                placeholder="Filtrar Skills"
-                                id="filter"
-                            />
+                                    }
+                                    backgroundColor={theme.BLUE_700}
+                                    width={70}
+                                    onClick={handleChangeSort}
+                                />
+                                <Input
+                                    type="text"
+                                    value={inputValue}
+                                    onChange={(e) => handleFilterChange(e.target.value)}
+                                    placeholder="Filtrar Skills"
+                                    id="filter"
+                                />
                             </ModalHeaderContent>
                         </ModalHeader>
                         <ModalContent>
@@ -155,10 +155,10 @@ export default function Modal({ isVisibleModal, onCancel, onSave, userSkills }: 
                         </ModalContent>
                         {skillsPage?.content && skillsPage.content.length > 0 ? (
                             <Pagination
-                            page={page}
-                            handlePageChange={setPage}
-                            totalPages={skillsPage?.totalPages || 0}
-                        />
+                                page={page}
+                                handlePageChange={setPage}
+                                totalPages={skillsPage?.totalPages || 0}
+                            />
                         ) : <></>}
                         <ButtonContainer>
                             <Button

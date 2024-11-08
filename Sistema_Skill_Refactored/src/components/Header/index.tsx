@@ -1,4 +1,4 @@
-import { ThemeConsumer, useTheme } from "styled-components";
+import { useTheme } from "styled-components";
 import { HeaderProps } from "../../interfaces";
 import Button from "../Button";
 import Icon from "../Icon";
@@ -32,7 +32,6 @@ export default function Header({ setIsModalOpen }: HeaderProps) {
                             color={theme.WHITE}
                             size={18}
                         />
-
                     }
                     backgroundColor={theme.BLUE_700}
                     width={70}

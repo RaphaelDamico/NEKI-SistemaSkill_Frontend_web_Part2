@@ -9,7 +9,7 @@ export const RegisterUserProvider = ({ children }: { children: ReactNode }) => {
     const [confirmPassword, setConfirmPassword] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(false);
 
-    return(
+    return (
         <RegisterUserContext.Provider value={{
             username,
             setUsername,
@@ -20,14 +20,14 @@ export const RegisterUserProvider = ({ children }: { children: ReactNode }) => {
             loading,
             setLoading
         }}>
-            { children }
+            {children}
         </RegisterUserContext.Provider>
     );
 };
 
-export const useRegisterUser =(): RegisterUserContextProps => {
+export const useRegisterUser = (): RegisterUserContextProps => {
     const context = useContext(RegisterUserContext);
-    if(!context)
+    if (!context)
         throw new Error("useRegisterUser deve ser usado com um RegisterUserProvider");
     return context;
 };

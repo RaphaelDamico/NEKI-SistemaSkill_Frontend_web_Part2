@@ -3,15 +3,15 @@ import { BodyContainer, BodyContent, SubTitle, TextContainer, Title } from "./st
 
 export default function RegisterPage() {
 
-    return (
-      <BodyContainer>
-        <BodyContent>
-          <TextContainer>
-            <Title>System Skills</Title>
-            <SubTitle>Gerencie e desenvolva suas habilidades profissionais.</SubTitle>
-          </TextContainer>
-          <RegisterForm />
-        </BodyContent>
-      </BodyContainer>
-    )
-  };
+  return (
+    <BodyContainer>
+      <BodyContent>
+        <TextContainer>
+          <Title>System Skills</Title>
+          <SubTitle>Gerencie e desenvolva suas habilidades profissionais.</SubTitle>
+        </TextContainer>
+        <RegisterForm />
+      </BodyContent>
+    </BodyContainer>
+  )
+};

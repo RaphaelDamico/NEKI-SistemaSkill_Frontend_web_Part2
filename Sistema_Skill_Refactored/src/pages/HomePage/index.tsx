@@ -25,7 +25,7 @@ export default function HomePage() {
     const [page, setPage] = useState(0);
     const [size] = useState(3);
     const [sort, setSort] = useState<string>("skill.skillName,asc");
-    const [sortIcon, setSortIcon] = useState<string>("arrowDown");
+    const [sortIcon, setSortIcon] = useState<string>("arrowUp");
     const theme = useTheme();
 
     useEffect(() => {
@@ -106,7 +106,7 @@ export default function HomePage() {
 
     function handleChangeSort() {
         setSort((prevSort) => {
-            const[field, order] = prevSort.split(",");
+            const [field, order] = prevSort.split(",");
             const newOrder = order === "asc" ? "desc" : "asc";
             setSortIcon(newOrder === "asc" ? "arrowUp" : "arrowDown");
             return `${field},${newOrder}`;
@@ -119,7 +119,7 @@ export default function HomePage() {
         <Container>
             <Header setIsModalOpen={setIsModalOpen} />
             <InputContainer>
-            <Button
+                <Button
                     content={
                         <Icon
                             name={sortIcon}
