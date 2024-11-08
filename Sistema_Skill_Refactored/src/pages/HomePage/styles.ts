@@ -14,8 +14,8 @@ export const Container = styled.main`
 
 export const InputContainer = styled.div`
     display: flex;
-    align-items: center;
-    justify-content: flex-end;
+    align-items: end;
+    justify-content: space-between;
     width: 100%;
 `;
 

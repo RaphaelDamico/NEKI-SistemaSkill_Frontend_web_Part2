@@ -38,6 +38,13 @@ export const ModalHeader = styled.div`
     }
 `;
 
+export const ModalHeaderContent = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: end;
+`;
+
 export const ModalContent = styled.div`
     display: flex;
     flex-direction: column;

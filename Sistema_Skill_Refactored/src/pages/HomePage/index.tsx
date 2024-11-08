@@ -10,6 +10,9 @@ import { Container, InputContainer, InputContent } from "./styles";
 import Pagination from "../../components/Pagination";
 import EmptyListCard from "../../components/EmptyListCard";
 import Input from "../../components/Input";
+import Button from "../../components/Button";
+import { useTheme } from "styled-components";
+import Icon from "../../components/Icon";
 
 export default function HomePage() {
     const [userSkillList, setUserSkillList] = useState<Page<UserSkill> | null>(null);
@@ -21,7 +24,9 @@ export default function HomePage() {
     const [timer, setTimer] = useState<number | undefined>(undefined);
     const [page, setPage] = useState(0);
     const [size] = useState(3);
-    const [sort] = useState("skill.skillName,asc");
+    const [sort, setSort] = useState<string>("skill.skillName,asc");
+    const [sortIcon, setSortIcon] = useState<string>("arrowDown");
+    const theme = useTheme();
 
     useEffect(() => {
         getUserSkillsList();
@@ -99,12 +104,34 @@ export default function HomePage() {
         }, 1000));
     };
 
+    function handleChangeSort() {
+        setSort((prevSort) => {
+            const[field, order] = prevSort.split(",");
+            const newOrder = order === "asc" ? "desc" : "asc";
+            setSortIcon(newOrder === "asc" ? "arrowUp" : "arrowDown");
+            return `${field},${newOrder}`;
+        })
+    }
+
     const isSkillListEmpty = !userSkillList?.content || userSkillList.content.length === 0;
 
     return (
         <Container>
             <Header setIsModalOpen={setIsModalOpen} />
             <InputContainer>
+            <Button
+                    content={
+                        <Icon
+                            name={sortIcon}
+                            color={theme.WHITE}
+                            size={18}
+                        />
+
+                    }
+                    backgroundColor={theme.BLUE_700}
+                    width={70}
+                    onClick={handleChangeSort}
+                />
                 <InputContent>
                     <Input
                         type="text"

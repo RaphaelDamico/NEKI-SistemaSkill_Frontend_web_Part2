@@ -1,3 +1,4 @@
+import { ThemeConsumer, useTheme } from "styled-components";
 import { HeaderProps } from "../../interfaces";
 import Button from "../Button";
 import Icon from "../Icon";
@@ -8,6 +9,8 @@ export default function Header({ setIsModalOpen }: HeaderProps) {
     const navigate = useNavigate();
 
     const username = localStorage.getItem("savedUsername");
+
+    const theme = useTheme();
 
     const handleOpenModal = () => {
         setIsModalOpen(true);
@@ -26,12 +29,12 @@ export default function Header({ setIsModalOpen }: HeaderProps) {
                     content={
                         <Icon
                             name={"logout"}
-                            color="#F9F9F9"
+                            color={theme.WHITE}
                             size={18}
                         />
 
                     }
-                    backgroundColor="#19536E"
+                    backgroundColor={theme.BLUE_700}
                     width={70}
                     onClick={signout}
                 />

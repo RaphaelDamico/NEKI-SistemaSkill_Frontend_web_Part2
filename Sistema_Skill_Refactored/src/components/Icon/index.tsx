@@ -5,6 +5,8 @@ import { SlLogout } from "react-icons/sl";
 import { IconProps } from "../../interfaces";
 import { FaArrowLeft, FaArrowRight  } from "react-icons/fa6";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+
 
 const icons = {
     viewHide: GrFormViewHide,
@@ -14,7 +16,9 @@ const icons = {
     logout: SlLogout,
     arrowLeft: FaArrowLeft,
     arrowRight: FaArrowRight,
-    loading: AiOutlineLoading3Quarters
+    loading: AiOutlineLoading3Quarters,
+    arrowDown: IoIosArrowDown,
+    arrowUp: IoIosArrowUp
 
 };
 
