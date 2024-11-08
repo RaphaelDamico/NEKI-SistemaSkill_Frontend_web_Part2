@@ -110,7 +110,7 @@ export default function HomePage() {
                         type="text"
                         value={inputValue}
                         onChange={(e) => handleFilterChange(e.target.value)}
-                        placeholder="Pesquisar skills"
+                        placeholder="Filtrar Skills"
                         id="filter"
                     />
                 </InputContent>

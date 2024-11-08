@@ -11,7 +11,6 @@ export const CardContainer = styled.div`
 
 export const IconButtonContainer = styled.div`
     display: flex;
-    flex-direction: row;
     gap: 1rem;
 `;
 
@@ -39,7 +38,7 @@ export const InfoContent = styled.div`
 
     span {
         font-family: sans-serif;
-        font-weight: 500;
+        font-weight: 600;
         margin-bottom: .625rem;
     }
 `;

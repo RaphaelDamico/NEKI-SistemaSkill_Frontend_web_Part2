@@ -113,7 +113,7 @@ export default function Modal({ isVisibleModal, onCancel, onSave, userSkills }: 
                                 type="text"
                                 value={inputValue}
                                 onChange={(e) => handleFilterChange(e.target.value)}
-                                placeholder="Pesquisar skills"
+                                placeholder="Filtrar Skills"
                                 id="filter"
                             />
                         </ModalHeader>
