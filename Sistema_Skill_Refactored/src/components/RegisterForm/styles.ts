@@ -16,7 +16,7 @@ export const FormContent = styled.form`
 export const ErrorContainer = styled.div`
     display: flex;
     justify-content: flex-start;
-    padding-inline: 1rem;
+    padding-inline: 1.25rem;
 `;
 
 export const ErrorSpan = styled.span`

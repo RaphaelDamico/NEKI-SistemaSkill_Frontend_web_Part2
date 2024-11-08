@@ -40,7 +40,17 @@ export default function LoginForm() {
         }
     }, [setUsername, setPassword]);
 
-    const loginUser = async() => {
+    const loginUser = async () => {
+        if(!username){
+            setHasError(true);
+            setErrorMessage("Digite um nome de usuário")
+            return;
+        }
+        if(!password){
+            setHasError(true);
+            setErrorMessage("Digite uma senha")
+            return;
+        }
         setHasError(false);
         setErrorMessage("");
         setLoading(true);
@@ -82,43 +92,47 @@ export default function LoginForm() {
                     loginUser();
                 }}
             >
-                <Input
-                    label="Login"
-                    type="text"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    placeholder="Digite seu nome de usuario"
-                    id="username"
-                />
-                <Input
-                    label="Senha"
-                    type="password"
-                    hasIcon
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Digite sua senha"
-                    id="password"
-                />
-                <Checkbox
-                    label={"Salvar senha"}
-                    checked={isChecked}
-                    onChange={handleCheckboxChange}
-                />
-                {hasError &&
-                    <ErrorContainer>
-                        <ErrorSpan>{errorMessage}</ErrorSpan>
-                    </ErrorContainer>
-                }
-                <Button
-                    content={loading ? <LoadingIcon name="loading" /> : "Entrar"}
-                    type="submit"
-                    backgroundColor={theme.BLUE_700}
-                />
-                <Button
-                    content={"Cadastrar"}
-                    onClick={() => navigate("/cadastro")}
-                    backgroundColor={theme.GREEN}
-                />
+                <div>
+                    <Input
+                        label="Login"
+                        type="text"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        placeholder="Digite seu nome de usuario"
+                        id="username"
+                    />
+                    <Input
+                        label="Senha"
+                        type="password"
+                        hasIcon
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder="Digite sua senha"
+                        id="password"
+                    />
+                    <Checkbox
+                        label={"Salvar senha"}
+                        checked={isChecked}
+                        onChange={handleCheckboxChange}
+                    />
+                    {hasError &&
+                        <ErrorContainer>
+                            <ErrorSpan>{errorMessage}</ErrorSpan>
+                        </ErrorContainer>
+                    }
+                </div>
+                <div>
+                    <Button
+                        content={loading ? <LoadingIcon name="loading" /> : "Entrar"}
+                        type="submit"
+                        backgroundColor={theme.BLUE_700}
+                    />
+                    <Button
+                        content={"Cadastrar"}
+                        onClick={() => navigate("/cadastro")}
+                        backgroundColor={theme.GREEN}
+                    />
+                </div>
             </FormContent>
         </FormContainer>
     );
